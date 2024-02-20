@@ -18,6 +18,7 @@ namespace WindowsForms_COP4365_001
         private BindingList<Candlestick> boundCandlesticks = null; // initialize bindinglist to update the data shown on the chart dynamically
 
         //test
+        //version 1.1
         public Form_StockViewer()
         {
             InitializeComponent(); //form is initialized
