@@ -47,9 +47,11 @@
             this.radioButton_Month = new System.Windows.Forms.RadioButton();
             this.radioButton_Week = new System.Windows.Forms.RadioButton();
             this.radioButton_Day = new System.Windows.Forms.RadioButton();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.candlestickBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_candlesticks)).BeginInit();
             this.groupBox_DWM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog_loadTicker
@@ -89,7 +91,7 @@
             this.chart_candlesticks.DataSource = this.candlestickBindingSource;
             legend1.Name = "Legend1";
             this.chart_candlesticks.Legends.Add(legend1);
-            this.chart_candlesticks.Location = new System.Drawing.Point(0, 165);
+            this.chart_candlesticks.Location = new System.Drawing.Point(0, 239);
             this.chart_candlesticks.Name = "chart_candlesticks";
             series1.ChartArea = "ChartArea_OHLC";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
@@ -111,7 +113,7 @@
             series2.YValueMembers = "volume";
             this.chart_candlesticks.Series.Add(series1);
             this.chart_candlesticks.Series.Add(series2);
-            this.chart_candlesticks.Size = new System.Drawing.Size(1392, 385);
+            this.chart_candlesticks.Size = new System.Drawing.Size(928, 311);
             this.chart_candlesticks.TabIndex = 5;
             // 
             // dateTimePicker_startDate
@@ -198,6 +200,11 @@
             this.radioButton_Day.UseVisualStyleBackColor = true;
             this.radioButton_Day.Click += new System.EventHandler(this.radioButton_Day_Click);
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // Form_StockViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +225,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart_candlesticks)).EndInit();
             this.groupBox_DWM.ResumeLayout(false);
             this.groupBox_DWM.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,6 +246,7 @@
         private System.Windows.Forms.RadioButton radioButton_Month;
         private System.Windows.Forms.RadioButton radioButton_Week;
         private System.Windows.Forms.RadioButton radioButton_Day;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }
 
