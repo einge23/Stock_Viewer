@@ -194,8 +194,7 @@ namespace WindowsForms_COP4365_001
         /// <returns>the bound list.</returns>
         private BindingList<Candlestick> displayCandlesticks(BindingList<Candlestick> boundCandlesticks)
         {
-            //sets the dataGridView's data source as the binding list of candlesticks so it can be dynamically updated.
-            dataGridView_tickerGrid.DataSource = boundCandlesticks;
+            
 
             //these lines set the data source for the chart to the bound list, and then bind the data to the chart so it will be displayed.
             chart_candlesticks.DataSource = boundCandlesticks;
