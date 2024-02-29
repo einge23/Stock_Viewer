@@ -20,6 +20,16 @@ namespace WindowsForms_COP4365_001
         public ulong volume { get; set; }
         public DateTime date { get; set; }
 
+        public void ComputeExtraProperties()
+        {
+            decimal range = high - low;
+            decimal topPrice = Math.Max(open, close);
+            decimal bottomPrice = Math.Min(open, close);
+            decimal bodyRange = topPrice - bottomPrice;
+            decimal upperTail = high - topPrice;
+            decimal lowerTail = bottomPrice - low;
+        }
+
         /// <summary>
         /// This method will convert the data input from a csv file into candlesticks
         /// </summary>
@@ -66,6 +76,8 @@ namespace WindowsForms_COP4365_001
             ulong tempVol;
             success = ulong.TryParse(substrings[6], out tempVol);
             if (success) volume = tempVol;
+
+            
         }
 
     }
@@ -74,4 +86,6 @@ namespace WindowsForms_COP4365_001
        Candlestick(string RowOfData);
 
     }
+
+    
 }
