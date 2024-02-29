@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,7 +90,7 @@ namespace WindowsForms_COP4365_001
         public bool isMarubozu { get; set; }
 
         SmartCandlestick() { }
-
+        
 
         public void ComputeExtraProperties()
         {
@@ -101,12 +102,23 @@ namespace WindowsForms_COP4365_001
             lowerTail = bottomPrice - low;
         }
 
+        public void ComputePatternProperties(SmartCandlestick scs)
+        {
+            Dictionary<string,bool> dict = scs. 
+        }
+
         public void ComputePatternProperties()
         {
-
+            ComputePatternProperties(scs);
         }
 
 
+        SmartCandlestick(string csvline) : base(csvline) {
+
+            ComputeExtraProperties();
+            ComputePatternProperties(scs);
+
+        }
     }
 
     
