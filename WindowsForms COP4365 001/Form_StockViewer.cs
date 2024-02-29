@@ -17,10 +17,26 @@ namespace WindowsForms_COP4365_001
         private List<Candlestick> candlesticks = null; // initialize null list of candlesticks to instantiate later
         private BindingList<Candlestick> boundCandlesticks = null; // initialize bindinglist to update the data shown on the chart dynamically
 
+
+    
+
+
         //test
+        //version 1.1
         public Form_StockViewer()
         {
             InitializeComponent(); //form is initialized
+        }
+
+        public Form_StockViewer(string path, DateTime start, DateTime end)
+        {
+            InitializeComponent(); //form is initialized
+            dateTimePicker_startDate.Value = start;
+            dateTimePicker_endDate.Value = end;
+            candlesticks = goReadFile(path);
+            filterCandlesticks();
+            normalizeChart();
+            displayCandlesticks();
         }
 
         /// <summary>
@@ -43,17 +59,42 @@ namespace WindowsForms_COP4365_001
         /// <param name="e"></param>
         private void openFileDialog_loadTicker_FileOk(object sender, CancelEventArgs e)
         {
-            //read the file, returns list of candlesticks from the file
-            goReadFile();
+            DateTime startDate = dateTimePicker_startDate.Value.Date;
+            DateTime endDate = dateTimePicker_endDate.Value.Date;
+            int numberOfFiles = openFileDialog_loadTicker.FileNames.Count();
+            for (int i = 0; i< numberOfFiles; i++)
+            {
+                string pathName = openFileDialog_loadTicker.FileNames[i];
+                string ticker = Path.GetFileNameWithoutExtension(pathName);
 
-            //filters candlesticks and adds to binding list 
-            filterCandlesticks();
+                Form_StockViewer form_StockViewer;
+                if (i == 0)
+                {
+                    form_StockViewer = this;
+                    //read the file, returns list of candlesticks from the file
+                    goReadFile();
 
-            //normalizes the chart axes based on the filtered candlesticks
-            normalizeChart();
+                    //filters candlesticks and adds to binding list 
+                    filterCandlesticks();
 
-            //displays the candlesticks from the specified range onto the chart 
-            displayCandlesticks();
+                    //normalizes the chart axes based on the filtered candlesticks
+                    normalizeChart();
+
+                    //displays the candlesticks from the specified range onto the chart 
+                    displayCandlesticks();
+
+                    form_StockViewer.Text = "Parent: " + ticker;
+                }
+                else
+                {
+                    form_StockViewer= new Form_StockViewer(pathName, startDate, endDate);
+                    form_StockViewer.Text = "Child: " + ticker;
+                }
+
+            }
+
+
+            
         }
 
 
@@ -70,8 +111,7 @@ namespace WindowsForms_COP4365_001
             const string referenceString = "Date,Open,High,Low,Close,Adj Close,Volume";
 
             //Start and end dates based on the date time pickers
-            DateTime startDate = dateTimePicker_startDate.Value.Date;
-            DateTime endDate = dateTimePicker_endDate.Value.Date;
+            
 
 
             //Pass the file path and file name to the StreamReader constructor
@@ -193,8 +233,7 @@ namespace WindowsForms_COP4365_001
         /// <returns>the bound list.</returns>
         private BindingList<Candlestick> displayCandlesticks(BindingList<Candlestick> boundCandlesticks)
         {
-            //sets the dataGridView's data source as the binding list of candlesticks so it can be dynamically updated.
-            dataGridView_tickerGrid.DataSource = boundCandlesticks;
+            
 
             //these lines set the data source for the chart to the bound list, and then bind the data to the chart so it will be displayed.
             chart_candlesticks.DataSource = boundCandlesticks;
@@ -313,6 +352,16 @@ namespace WindowsForms_COP4365_001
         {
             //changes the OFD's filter to show monthly .csv files only.
             openFileDialog_loadTicker.Filter = "Monthly|*-Month.csv";
+        }
+
+        private void chart_candlesticks_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form_StockViewer_Load(object sender, EventArgs e)
+        {
+
         }
     }   
     }
