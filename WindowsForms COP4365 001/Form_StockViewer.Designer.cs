@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.openFileDialog_loadTicker = new System.Windows.Forms.OpenFileDialog();
             this.dateTimePicker_endDate = new System.Windows.Forms.DateTimePicker();
             this.button_loader = new System.Windows.Forms.Button();
@@ -65,14 +65,14 @@
             // 
             // dateTimePicker_endDate
             // 
-            this.dateTimePicker_endDate.Location = new System.Drawing.Point(24, 59);
+            this.dateTimePicker_endDate.Location = new System.Drawing.Point(3, 55);
             this.dateTimePicker_endDate.Name = "dateTimePicker_endDate";
             this.dateTimePicker_endDate.Size = new System.Drawing.Size(184, 20);
             this.dateTimePicker_endDate.TabIndex = 1;
             // 
             // button_loader
             // 
-            this.button_loader.Location = new System.Drawing.Point(24, 92);
+            this.button_loader.Location = new System.Drawing.Point(3, 92);
             this.button_loader.Name = "button_loader";
             this.button_loader.Size = new System.Drawing.Size(75, 23);
             this.button_loader.TabIndex = 4;
@@ -86,43 +86,42 @@
             // 
             // chart_candlesticks
             // 
-            chartArea3.Name = "ChartArea_OHLC";
-            chartArea4.AlignWithChartArea = "ChartArea_OHLC";
-            chartArea4.Name = "ChartArea_Volume";
-            this.chart_candlesticks.ChartAreas.Add(chartArea3);
-            this.chart_candlesticks.ChartAreas.Add(chartArea4);
+            chartArea1.Name = "ChartArea_OHLC";
+            chartArea2.AlignWithChartArea = "ChartArea_OHLC";
+            chartArea2.Name = "ChartArea_Volume";
+            this.chart_candlesticks.ChartAreas.Add(chartArea1);
+            this.chart_candlesticks.ChartAreas.Add(chartArea2);
             this.chart_candlesticks.DataSource = this.candlestickBindingSource;
-            legend2.Name = "Legend1";
-            this.chart_candlesticks.Legends.Add(legend2);
-            this.chart_candlesticks.Location = new System.Drawing.Point(12, 130);
+            legend1.Name = "Legend1";
+            this.chart_candlesticks.Legends.Add(legend1);
+            this.chart_candlesticks.Location = new System.Drawing.Point(0, 239);
             this.chart_candlesticks.Name = "chart_candlesticks";
-            series3.ChartArea = "ChartArea_OHLC";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series3.CustomProperties = "PriceDownColor=Crimson, PriceUpColor=ForestGreen";
-            series3.IsVisibleInLegend = false;
-            series3.Legend = "Legend1";
-            series3.Name = "Series_OHLC";
-            series3.XValueMember = "date";
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series3.YValueMembers = "high, low, open, close";
-            series3.YValuesPerPoint = 4;
-            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series4.ChartArea = "ChartArea_Volume";
-            series4.IsVisibleInLegend = false;
-            series4.Legend = "Legend1";
-            series4.Name = "Series_Volume";
-            series4.XValueMember = "date";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series4.YValueMembers = "volume";
-            this.chart_candlesticks.Series.Add(series3);
-            this.chart_candlesticks.Series.Add(series4);
-            this.chart_candlesticks.Size = new System.Drawing.Size(1396, 311);
+            series1.ChartArea = "ChartArea_OHLC";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.CustomProperties = "PriceDownColor=Crimson, PriceUpColor=ForestGreen";
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Series_OHLC";
+            series1.XValueMember = "date";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValueMembers = "high, low, open, close";
+            series1.YValuesPerPoint = 4;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series2.ChartArea = "ChartArea_Volume";
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series_Volume";
+            series2.XValueMember = "date";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValueMembers = "volume";
+            this.chart_candlesticks.Series.Add(series1);
+            this.chart_candlesticks.Series.Add(series2);
+            this.chart_candlesticks.Size = new System.Drawing.Size(928, 311);
             this.chart_candlesticks.TabIndex = 5;
-            this.chart_candlesticks.Click += new System.EventHandler(this.chart_candlesticks_Click);
             // 
             // dateTimePicker_startDate
             // 
-            this.dateTimePicker_startDate.Location = new System.Drawing.Point(24, 16);
+            this.dateTimePicker_startDate.Location = new System.Drawing.Point(3, 16);
             this.dateTimePicker_startDate.Name = "dateTimePicker_startDate";
             this.dateTimePicker_startDate.Size = new System.Drawing.Size(184, 20);
             this.dateTimePicker_startDate.TabIndex = 7;
@@ -131,7 +130,7 @@
             // label_start
             // 
             this.label_start.AutoSize = true;
-            this.label_start.Location = new System.Drawing.Point(24, 0);
+            this.label_start.Location = new System.Drawing.Point(3, 0);
             this.label_start.Name = "label_start";
             this.label_start.Size = new System.Drawing.Size(58, 13);
             this.label_start.TabIndex = 8;
@@ -140,7 +139,7 @@
             // label_end
             // 
             this.label_end.AutoSize = true;
-            this.label_end.Location = new System.Drawing.Point(21, 43);
+            this.label_end.Location = new System.Drawing.Point(3, 39);
             this.label_end.Name = "label_end";
             this.label_end.Size = new System.Drawing.Size(55, 13);
             this.label_end.TabIndex = 9;
@@ -148,7 +147,7 @@
             // 
             // button_refresh
             // 
-            this.button_refresh.Location = new System.Drawing.Point(133, 92);
+            this.button_refresh.Location = new System.Drawing.Point(112, 92);
             this.button_refresh.Name = "button_refresh";
             this.button_refresh.Size = new System.Drawing.Size(75, 23);
             this.button_refresh.TabIndex = 10;
@@ -161,7 +160,7 @@
             this.groupBox_DWM.Controls.Add(this.radioButton_Month);
             this.groupBox_DWM.Controls.Add(this.radioButton_Week);
             this.groupBox_DWM.Controls.Add(this.radioButton_Day);
-            this.groupBox_DWM.Location = new System.Drawing.Point(233, 16);
+            this.groupBox_DWM.Location = new System.Drawing.Point(212, 16);
             this.groupBox_DWM.Name = "groupBox_DWM";
             this.groupBox_DWM.Size = new System.Drawing.Size(121, 99);
             this.groupBox_DWM.TabIndex = 11;
@@ -218,9 +217,9 @@
             this.panel1.Controls.Add(this.button_loader);
             this.panel1.Controls.Add(this.label_end);
             this.panel1.Controls.Add(this.dateTimePicker_startDate);
-            this.panel1.Location = new System.Drawing.Point(12, 447);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(384, 132);
+            this.panel1.Size = new System.Drawing.Size(333, 132);
             this.panel1.TabIndex = 12;
             // 
             // Form_StockViewer
@@ -233,7 +232,6 @@
             this.Controls.Add(this.chart_candlesticks);
             this.Name = "Form_StockViewer";
             this.Text = "Stock Viewer";
-            this.Load += new System.EventHandler(this.Form_StockViewer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.candlestickBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_candlesticks)).EndInit();
             this.groupBox_DWM.ResumeLayout(false);

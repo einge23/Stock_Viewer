@@ -69,4 +69,9 @@ namespace WindowsForms_COP4365_001
         }
 
     }
+    public class SmartCandlestick : Candlestick
+    {
+       Candlestick(string RowOfData);
+
+    }
 }

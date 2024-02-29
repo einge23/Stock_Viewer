@@ -17,26 +17,11 @@ namespace WindowsForms_COP4365_001
         private List<Candlestick> candlesticks = null; // initialize null list of candlesticks to instantiate later
         private BindingList<Candlestick> boundCandlesticks = null; // initialize bindinglist to update the data shown on the chart dynamically
 
-
-    
-
-
         //test
         //version 1.1
         public Form_StockViewer()
         {
             InitializeComponent(); //form is initialized
-        }
-
-        public Form_StockViewer(string path, DateTime start, DateTime end)
-        {
-            InitializeComponent(); //form is initialized
-            dateTimePicker_startDate.Value = start;
-            dateTimePicker_endDate.Value = end;
-            candlesticks = goReadFile(path);
-            filterCandlesticks();
-            normalizeChart();
-            displayCandlesticks();
         }
 
         /// <summary>
@@ -59,42 +44,17 @@ namespace WindowsForms_COP4365_001
         /// <param name="e"></param>
         private void openFileDialog_loadTicker_FileOk(object sender, CancelEventArgs e)
         {
-            DateTime startDate = dateTimePicker_startDate.Value.Date;
-            DateTime endDate = dateTimePicker_endDate.Value.Date;
-            int numberOfFiles = openFileDialog_loadTicker.FileNames.Count();
-            for (int i = 0; i< numberOfFiles; i++)
-            {
-                string pathName = openFileDialog_loadTicker.FileNames[i];
-                string ticker = Path.GetFileNameWithoutExtension(pathName);
+            //read the file, returns list of candlesticks from the file
+            goReadFile();
 
-                Form_StockViewer form_StockViewer;
-                if (i == 0)
-                {
-                    form_StockViewer = this;
-                    //read the file, returns list of candlesticks from the file
-                    goReadFile();
+            //filters candlesticks and adds to binding list 
+            filterCandlesticks();
 
-                    //filters candlesticks and adds to binding list 
-                    filterCandlesticks();
+            //normalizes the chart axes based on the filtered candlesticks
+            normalizeChart();
 
-                    //normalizes the chart axes based on the filtered candlesticks
-                    normalizeChart();
-
-                    //displays the candlesticks from the specified range onto the chart 
-                    displayCandlesticks();
-
-                    form_StockViewer.Text = "Parent: " + ticker;
-                }
-                else
-                {
-                    form_StockViewer= new Form_StockViewer(pathName, startDate, endDate);
-                    form_StockViewer.Text = "Child: " + ticker;
-                }
-
-            }
-
-
-            
+            //displays the candlesticks from the specified range onto the chart 
+            displayCandlesticks();
         }
 
 
@@ -111,7 +71,8 @@ namespace WindowsForms_COP4365_001
             const string referenceString = "Date,Open,High,Low,Close,Adj Close,Volume";
 
             //Start and end dates based on the date time pickers
-            
+            DateTime startDate = dateTimePicker_startDate.Value.Date;
+            DateTime endDate = dateTimePicker_endDate.Value.Date;
 
 
             //Pass the file path and file name to the StreamReader constructor
@@ -352,16 +313,6 @@ namespace WindowsForms_COP4365_001
         {
             //changes the OFD's filter to show monthly .csv files only.
             openFileDialog_loadTicker.Filter = "Monthly|*-Month.csv";
-        }
-
-        private void chart_candlesticks_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form_StockViewer_Load(object sender, EventArgs e)
-        {
-
         }
     }   
     }
