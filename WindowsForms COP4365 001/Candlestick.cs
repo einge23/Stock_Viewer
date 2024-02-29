@@ -20,15 +20,7 @@ namespace WindowsForms_COP4365_001
         public ulong volume { get; set; }
         public DateTime date { get; set; }
 
-        public void ComputeExtraProperties()
-        {
-            decimal range = high - low;
-            decimal topPrice = Math.Max(open, close);
-            decimal bottomPrice = Math.Min(open, close);
-            decimal bodyRange = topPrice - bottomPrice;
-            decimal upperTail = high - topPrice;
-            decimal lowerTail = bottomPrice - low;
-        }
+       public Candlestick() { }
 
         /// <summary>
         /// This method will convert the data input from a csv file into candlesticks
@@ -83,7 +75,37 @@ namespace WindowsForms_COP4365_001
     }
     public class SmartCandlestick : Candlestick
     {
-       Candlestick(string RowOfData);
+        public decimal range { get; set; }
+        public decimal topPrice { get; set; }
+        public decimal bottomPrice { get; set; }
+        public decimal bodyRange { get; set; }
+        public decimal upperTail { get; set; }
+        public decimal lowerTail { get; set; }
+
+        public bool isBullish { get; set; }
+        public bool isBearish { get; set; }
+        public bool isNeutral { get; set; }
+        public bool isDoji { get; set; }
+        public bool isMarubozu { get; set; }
+
+        SmartCandlestick() { }
+
+
+        public void ComputeExtraProperties()
+        {
+            range = high - low;
+            topPrice = Math.Max(open, close);
+            bottomPrice = Math.Min(open, close);
+            bodyRange = topPrice - bottomPrice;
+            upperTail = high - topPrice;
+            lowerTail = bottomPrice - low;
+        }
+
+        public void ComputePatternProperties()
+        {
+
+        }
+
 
     }
 
