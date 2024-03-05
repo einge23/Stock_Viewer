@@ -23,6 +23,13 @@ namespace WindowsForms_COP4365_001
         {
             InitializeComponent(); //form is initialized
         }
+        public Form_StockViewer(string path, DateTime start, DateTime end)
+        {
+            InitializeComponent();
+            dateTimePicker_startDate.Value = start;
+            dateTimePicker_endDate.Value = end;
+            candlesticks = goReadFile(path);
+        }
 
         /// <summary>
         /// event handler for load button being clicked. OFD's dialog is shown.
@@ -35,7 +42,6 @@ namespace WindowsForms_COP4365_001
             openFileDialog_loadTicker.ShowDialog(); 
         }
 
-
         /// <summary>
         /// This method is the event handler for a valid file being loaded in with the open file dialog. It will call the goReadFile function with the 
         /// read file and will create the list of candlesticks that will be bound to the data grid view and the chart.
@@ -44,17 +50,28 @@ namespace WindowsForms_COP4365_001
         /// <param name="e"></param>
         private void openFileDialog_loadTicker_FileOk(object sender, CancelEventArgs e)
         {
-            //read the file, returns list of candlesticks from the file
-            goReadFile();
-
-            //filters candlesticks and adds to binding list 
-            filterCandlesticks();
-
-            //normalizes the chart axes based on the filtered candlesticks
-            normalizeChart();
-
-            //displays the candlesticks from the specified range onto the chart 
-            displayCandlesticks();
+            int n = openFileDialog_loadTicker.FileNames.Count();
+            for (int i = 0; i < n; i++)
+            {
+                string pathName = openFileDialog_loadTicker.FileNames[i];
+                string ticker = Path.GetFileNameWithoutExtension(pathName);
+                Form_StockViewer stockViewer = new Form_StockViewer(pathName, dateTimePicker_startDate.Value, dateTimePicker_endDate.Value);
+                if (i == 0)
+                {
+                    stockViewer = this;
+                    stockViewer.Text = "Parent: " + ticker;
+                }
+                else
+                { 
+                    stockViewer.Text = "Child: " + ticker;
+                }
+                stockViewer.goReadFile(pathName);
+                stockViewer.filterCandlesticks();
+                stockViewer.normalizeChart();
+                stockViewer.displayCandlesticks();
+                stockViewer.Show();
+                stockViewer.BringToFront();
+            }
         }
 
 

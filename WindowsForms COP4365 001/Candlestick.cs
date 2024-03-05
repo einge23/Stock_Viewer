@@ -87,9 +87,14 @@ namespace WindowsForms_COP4365_001
         public bool isBearish { get; set; }
         public bool isNeutral { get; set; }
         public bool isDoji { get; set; }
+        public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
-        SmartCandlestick() { }
+        SmartCandlestick(string RowOfData) : base(RowOfData)
+        {
+            ComputeExtraProperties();
+            ComputePatternProperties();
+        }
         
 
         public void ComputeExtraProperties()
@@ -102,23 +107,19 @@ namespace WindowsForms_COP4365_001
             lowerTail = bottomPrice - low;
         }
 
-        public void ComputePatternProperties(SmartCandlestick scs)
-        {
-            Dictionary<string,bool> dict = scs. 
-        }
+        
 
         public void ComputePatternProperties()
         {
-            ComputePatternProperties(scs);
-        }
-
-
-        SmartCandlestick(string csvline) : base(csvline) {
-
-            ComputeExtraProperties();
-            ComputePatternProperties(scs);
+            isBearish = (open > close);
+            isBullish = (open < close);
+            isNeutral = (close == open);
+            isMarubozu = (bodyRange >= (decimal)0.96 * range);
+            isHammer = ((lowerTail >= (decimal)0.7 * range) || (upperTail >= (decimal)0.7 * range));
+            isDoji = (bodyRange <= (decimal)0.1 * range);
 
         }
+
     }
 
     
