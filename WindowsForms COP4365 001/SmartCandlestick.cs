@@ -22,12 +22,21 @@ namespace WindowsForms_COP4365_001
         public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
-        SmartCandlestick(string RowOfData) : base(RowOfData)
+        SmartCandlestick(Candlestick cs)
         {
+            date = cs.date;
+            open = cs.open;
+            close = cs.close;
+            high = cs.high;
+            low = cs.low;
+            adj_close = cs.adj_close;
+            volume = cs.volume;
+
+
+
             ComputeExtraProperties();
             ComputePatternProperties();
         }
-
 
         public void ComputeExtraProperties()
         {
