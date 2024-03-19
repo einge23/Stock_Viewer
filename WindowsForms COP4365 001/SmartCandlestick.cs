@@ -22,6 +22,8 @@ namespace WindowsForms_COP4365_001
         public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
+        public Dictionary<String,bool> Properties { get; set; }
+
         SmartCandlestick(Candlestick cs): base()
         {
             date = cs.date;
