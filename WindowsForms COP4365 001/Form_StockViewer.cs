@@ -21,6 +21,8 @@ namespace WindowsForms_COP4365_001
         public Form_StockViewer()
         {
             InitializeComponent(); //form is initialized
+            PopulateCombobox();
+
         }
         public Form_StockViewer(string path, DateTime start, DateTime end)
         {
@@ -28,6 +30,7 @@ namespace WindowsForms_COP4365_001
             dateTimePicker_startDate.Value = start;
             dateTimePicker_endDate.Value = end;
             candlesticks = goReadFile(path);
+            PopulateCombobox();
         }
 
         /// <summary>
@@ -35,10 +38,10 @@ namespace WindowsForms_COP4365_001
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_loader_Click(object sender, EventArgs e) 
+        private void button_loader_Click(object sender, EventArgs e)
         {
             //shows the open file dialog upon the load button being clicked
-            openFileDialog_loadTicker.ShowDialog(); 
+            openFileDialog_loadTicker.ShowDialog();
         }
 
         /// <summary>
@@ -61,9 +64,10 @@ namespace WindowsForms_COP4365_001
                     stockViewer.Text = "Parent: " + ticker;
                 }
                 else
-                { 
+                {
                     stockViewer.Text = "Child: " + ticker;
                 }
+                
                 stockViewer.goReadFile(pathName);
                 stockViewer.filterCandlesticks();
                 stockViewer.normalizeChart();
@@ -92,7 +96,7 @@ namespace WindowsForms_COP4365_001
 
 
             //Pass the file path and file name to the StreamReader constructor
-            using (StreamReader sr = new StreamReader(filename)) 
+            using (StreamReader sr = new StreamReader(filename))
 
             {
                 //makes a list of candlestick objects to be populated with candlesticks from the read file.
@@ -105,10 +109,10 @@ namespace WindowsForms_COP4365_001
                 string line = sr.ReadLine();
 
                 //starts reading the file only if the line string is the reference string. This ensures it starts reading at the right place.
-                if(line == referenceString)
+                if (line == referenceString)
                 {
                     //continue to read until you reach end of file
-                    while ((line  = sr.ReadLine()) != null)
+                    while ((line = sr.ReadLine()) != null)
                     {
                         //read the next line
                         //this is where we need to instantiate the candlestick represented by the string
@@ -116,7 +120,7 @@ namespace WindowsForms_COP4365_001
 
                         //add candlesticks to list
                         candlesticks.Add(cs);
-                        
+
                     }
                     //if (filename == null) candlesticks = candlesticks;
 
@@ -127,7 +131,7 @@ namespace WindowsForms_COP4365_001
                 }
                 //if the first line is not the reference string, the file will not be read.
                 else
-                  {
+                {
                     //if this happens the form's name reads "bad file" and the name of the file that was given to the open file dialog.                
                     Text = "Bad File" + filename;
 
@@ -140,7 +144,7 @@ namespace WindowsForms_COP4365_001
         private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick> candlesticks)
         {
             smartCandlesticks = new List<SmartCandlestick>();
-            foreach(Candlestick cs in candlesticks)
+            foreach (Candlestick cs in candlesticks)
             {
                 SmartCandlestick scs = new SmartCandlestick(cs);
             }
@@ -150,18 +154,25 @@ namespace WindowsForms_COP4365_001
         private void ConvertCandlesticksToSmart()
         {
             smartCandlesticks = ConvertCandlesticksToSmart(candlesticks);
-            foreach(SmartCandlestick scs in smartCandlesticks)
+        }
+        private void PopulateCombobox()
+        {
+            Candlestick dummy = new Candlestick
             {
-                scs.Properties.Add("Bearish", scs.isBearish);
-                scs.Properties.Add("Bullish", scs.isBullish);
-                scs.Properties.Add("Neutral", scs.isNeutral);
-                scs.Properties.Add("Marubozu", scs.isMarubozu);
-                scs.Properties.Add("Hammer", scs.isHammer);
-                scs.Properties.Add("Doji", scs.isDoji);
+                open = 100 / 1,
+                high = 150 / 1,
+                low = 90 / 1,
+                close = 130 / 1,
+                adj_close = 131 / 1,
+                volume = 1000 / 1,
+                date = System.DateTime.Now
+            };
+            SmartCandlestick dummyscs = new SmartCandlestick(dummy);
+            foreach(var key in dummyscs.Properties.Keys)
+            {
+                comboBox_PatternSelect.Items.Add(key);
             }
         }
-
-
         /// <summary>
         /// default method for the goReadFile method. Calls the version that takes parameters with the openfiledialogs file name.
         /// </summary>
@@ -213,7 +224,7 @@ namespace WindowsForms_COP4365_001
                 return filteredList;
             }
 
-           
+
         }
         /// <summary>
         /// void method for filtering a list of candlesticks. Calls the other version of the method with a list of candlesticks, and the start 
@@ -222,7 +233,7 @@ namespace WindowsForms_COP4365_001
         private void filterCandlesticks()
         {
             //assigns filteredlist to be the returned list from the call to the other version of this function
-            List<Candlestick> filteredList = filterCandlesticks(candlesticks,dateTimePicker_startDate.Value,dateTimePicker_endDate.Value);
+            List<Candlestick> filteredList = filterCandlesticks(candlesticks, dateTimePicker_startDate.Value, dateTimePicker_endDate.Value);
 
             //assigns the binding list to the filtered list of candlesticks. This will be used to dynamically update the chart and datagrid view.
             boundCandlesticks = new BindingList<Candlestick>(filteredList);
@@ -235,7 +246,7 @@ namespace WindowsForms_COP4365_001
         /// <returns>the bound list.</returns>
         private BindingList<Candlestick> displayCandlesticks(BindingList<Candlestick> boundCandlesticks)
         {
-            
+
 
             //these lines set the data source for the chart to the bound list, and then bind the data to the chart so it will be displayed.
             chart_candlesticks.DataSource = boundCandlesticks;
@@ -258,7 +269,7 @@ namespace WindowsForms_COP4365_001
         /// </summary>
         /// <param name="boundCandlesticks"></param>
         /// <returns></returns>
-        private BindingList<Candlestick> normalizeChart(BindingList<Candlestick> boundCandlesticks) 
+        private BindingList<Candlestick> normalizeChart(BindingList<Candlestick> boundCandlesticks)
         {
             //initializes two decimal values
             decimal low;
@@ -331,7 +342,7 @@ namespace WindowsForms_COP4365_001
         {
             //changes the OFD's filter to show daily .csv files only.
             openFileDialog_loadTicker.Filter = "Daily|*-Day.csv";
-            
+
         }
 
         /// <summary>
@@ -356,7 +367,6 @@ namespace WindowsForms_COP4365_001
             openFileDialog_loadTicker.Filter = "Monthly|*-Month.csv";
         }
 
-        private void 
-    }   
     }
+}
 

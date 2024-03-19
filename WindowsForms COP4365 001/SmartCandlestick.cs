@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace WindowsForms_COP4365_001
 {
@@ -19,6 +20,8 @@ namespace WindowsForms_COP4365_001
         public bool isBearish { get; set; }
         public bool isNeutral { get; set; }
         public bool isDoji { get; set; }
+        public bool isDragonflyDoji { get; set; }
+        public bool isGravestoneDoji { get; set; }
         public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
@@ -33,8 +36,17 @@ namespace WindowsForms_COP4365_001
             low = cs.low;
             adj_close = cs.adj_close;
             volume = cs.volume;
+            Properties = new Dictionary<string, bool>();
             ComputeExtraProperties();
             ComputePatternProperties();
+            Properties.Add("Bearish", isBearish);
+            Properties.Add("Bullish", isBullish);
+            Properties.Add("Neutral", isNeutral);
+            Properties.Add("Marubozu",isMarubozu); 
+            Properties.Add("Hammer", isHammer);
+            Properties.Add("Doji", isDoji);
+            Properties.Add("Dragonfly Doji", isDragonflyDoji);
+            Properties.Add("Gravestone Doji", isGravestoneDoji);
         }
 
         public void ComputeExtraProperties()
@@ -55,10 +67,9 @@ namespace WindowsForms_COP4365_001
             isMarubozu = (bodyRange >= (decimal)0.96 * range);
             isHammer = ((lowerTail >= (decimal)0.7 * range) || (upperTail >= (decimal)0.7 * range));
             isDoji = (bodyRange <= (decimal)0.1 * range);
-
+            isDragonflyDoji = isDoji && (high - low) <= (decimal)0.1;
+            isGravestoneDoji = isDoji && close <= (low + (decimal)0.2 * (high - low)) && open <= (low + (decimal)0.2 * (high - low));
         }
-
-
     }
 }
 
