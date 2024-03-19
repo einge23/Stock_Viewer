@@ -15,10 +15,9 @@ namespace WindowsForms_COP4365_001
     public partial class Form_StockViewer : Form
     {
         private List<Candlestick> candlesticks = null; // initialize null list of candlesticks to instantiate later
+        private List<SmartCandlestick> smartCandlesticks = null;
         private BindingList<Candlestick> boundCandlesticks = null; // initialize bindinglist to update the data shown on the chart dynamically
 
-        //test
-        //version 1.1
         public Form_StockViewer()
         {
             InitializeComponent(); //form is initialized
@@ -137,6 +136,8 @@ namespace WindowsForms_COP4365_001
                 }
             }
         }
+
+        private List<SmartCandlestick> make_scs
 
         /// <summary>
         /// default method for the goReadFile method. Calls the version that takes parameters with the openfiledialogs file name.

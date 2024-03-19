@@ -22,7 +22,7 @@ namespace WindowsForms_COP4365_001
         public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
-        SmartCandlestick(Candlestick cs)
+        SmartCandlestick(Candlestick cs): base()
         {
             date = cs.date;
             open = cs.open;
@@ -31,9 +31,6 @@ namespace WindowsForms_COP4365_001
             low = cs.low;
             adj_close = cs.adj_close;
             volume = cs.volume;
-
-
-
             ComputeExtraProperties();
             ComputePatternProperties();
         }
@@ -47,8 +44,6 @@ namespace WindowsForms_COP4365_001
             upperTail = high - topPrice;
             lowerTail = bottomPrice - low;
         }
-
-
 
         public void ComputePatternProperties()
         {
