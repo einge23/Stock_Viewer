@@ -137,7 +137,7 @@ namespace WindowsForms_COP4365_001
             }
         }
 
-        private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick>)
+        private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick> candlesticks)
         {
             smartCandlesticks = new List<SmartCandlestick>();
             foreach(Candlestick cs in candlesticks)
@@ -146,6 +146,21 @@ namespace WindowsForms_COP4365_001
             }
             return smartCandlesticks;
         }
+
+        private void ConvertCandlesticksToSmart()
+        {
+            smartCandlesticks = ConvertCandlesticksToSmart(candlesticks);
+            foreach(SmartCandlestick scs in smartCandlesticks)
+            {
+                scs.Properties.Add("Bearish", scs.isBearish);
+                scs.Properties.Add("Bullish", scs.isBullish);
+                scs.Properties.Add("Neutral", scs.isNeutral);
+                scs.Properties.Add("Marubozu", scs.isMarubozu);
+                scs.Properties.Add("Hammer", scs.isHammer);
+                scs.Properties.Add("Doji", scs.isDoji);
+            }
+        }
+
 
         /// <summary>
         /// default method for the goReadFile method. Calls the version that takes parameters with the openfiledialogs file name.
