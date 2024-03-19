@@ -140,39 +140,7 @@ namespace WindowsForms_COP4365_001
                 }
             }
         }
-
-        private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick> candlesticks)
-        {
-            smartCandlesticks = new List<SmartCandlestick>();
-            foreach (Candlestick cs in candlesticks)
-            {
-                SmartCandlestick scs = new SmartCandlestick(cs);
-            }
-            return smartCandlesticks;
-        }
-
-        private void ConvertCandlesticksToSmart()
-        {
-            smartCandlesticks = ConvertCandlesticksToSmart(candlesticks);
-        }
-        private void PopulateCombobox()
-        {
-            Candlestick dummy = new Candlestick
-            {
-                open = 100 / 1,
-                high = 150 / 1,
-                low = 90 / 1,
-                close = 130 / 1,
-                adj_close = 131 / 1,
-                volume = 1000 / 1,
-                date = System.DateTime.Now
-            };
-            SmartCandlestick dummyscs = new SmartCandlestick(dummy);
-            foreach(var key in dummyscs.Properties.Keys)
-            {
-                comboBox_PatternSelect.Items.Add(key);
-            }
-        }
+        
         /// <summary>
         /// default method for the goReadFile method. Calls the version that takes parameters with the openfiledialogs file name.
         /// </summary>
@@ -367,6 +335,61 @@ namespace WindowsForms_COP4365_001
             openFileDialog_loadTicker.Filter = "Monthly|*-Month.csv";
         }
 
+        /// <summary>
+        /// This function takes a list of candlesticks and turns them into smartcandlesticks using the smartcandlestick constructer.
+        /// </summary>
+        /// <param name="candlesticks">List of Candlesticks</param>
+        /// <returns>List of SmartCandlesticks</returns>
+        private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick> candlesticks)
+        {
+            //initialize the list of smartCandlesticks
+            smartCandlesticks = new List<SmartCandlestick>();
+
+            //loop through all the candlesticks in the passed in list
+            foreach (Candlestick cs in candlesticks)
+            {
+                //for each candlestick, make a new smartcandlestick object using the candlestick as the parameter to the constructor
+                SmartCandlestick scs = new SmartCandlestick(cs);
+            }
+            //return the list of smartCandlesticks
+            return smartCandlesticks;
+        }
+        /// <summary>
+        /// void method for the ConvertCandlesticksToSmart method that sets the smartCandlesticks list to the list returned by the call to 
+        /// ConvertCandlesticksToSmart(candlesticks)
+        /// </summary>
+        private void ConvertCandlesticksToSmart()
+        {
+            //This list is initialized at the beginning of the code and is now given a value as described in the function summary
+            smartCandlesticks = ConvertCandlesticksToSmart(candlesticks);
+        }
+        /// <summary>
+        /// This method is used for Populating the combobox with the properties that a smartcandlestick can have. It is called after the form 
+        /// is initialized.
+        /// </summary>
+        private void PopulateCombobox()
+        {
+            //dummy candlestick made with random placeholder values 
+            Candlestick dummy = new Candlestick
+            {
+                open = 100 / 1,              //placeholder value
+                high = 150 / 1,              //placeholder value
+                low = 90 / 1,                //placeholder value
+                close = 130 / 1,             //placeholder value
+                adj_close = 131 / 1,         //placeholder value
+                volume = 1000 / 1,           //placeholder value
+                date = System.DateTime.Now   //placeholder value
+            };
+            //create a dummy smartcandlestick out of the dummy candlestick initialized above
+            SmartCandlestick dummyscs = new SmartCandlestick(dummy);
+
+            //loop through each key in the key value pairs within the scs properties dictionary
+            foreach (var key in dummyscs.Properties.Keys)
+            {
+                //add each key to the combobox. The key is the string of the pattern name.
+                comboBox_PatternSelect.Items.Add(key);
+            }
+        }
     }
 }
 
