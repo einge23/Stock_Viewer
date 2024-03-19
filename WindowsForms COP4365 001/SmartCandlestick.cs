@@ -22,9 +22,9 @@ namespace WindowsForms_COP4365_001
         public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
-        public Dictionary<String,bool> Properties { get; set; }
+        public Dictionary<string, bool> Properties { get; set;}
 
-        SmartCandlestick(Candlestick cs): base()
+        public SmartCandlestick(Candlestick cs): base()
         {
             date = cs.date;
             open = cs.open;
@@ -57,6 +57,7 @@ namespace WindowsForms_COP4365_001
             isDoji = (bodyRange <= (decimal)0.1 * range);
 
         }
+
 
     }
 }

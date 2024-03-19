@@ -137,7 +137,15 @@ namespace WindowsForms_COP4365_001
             }
         }
 
-        private List<SmartCandlestick> make_scs
+        private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick>)
+        {
+            smartCandlesticks = new List<SmartCandlestick>();
+            foreach(Candlestick cs in candlesticks)
+            {
+                SmartCandlestick scs = new SmartCandlestick(cs);
+            }
+            return smartCandlesticks;
+        }
 
         /// <summary>
         /// default method for the goReadFile method. Calls the version that takes parameters with the openfiledialogs file name.
@@ -332,6 +340,8 @@ namespace WindowsForms_COP4365_001
             //changes the OFD's filter to show monthly .csv files only.
             openFileDialog_loadTicker.Filter = "Monthly|*-Month.csv";
         }
+
+        private void 
     }   
     }
 

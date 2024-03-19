@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.openFileDialog_loadTicker = new System.Windows.Forms.OpenFileDialog();
@@ -49,6 +48,7 @@
             this.radioButton_Day = new System.Windows.Forms.RadioButton();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox_PatternSelect = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.candlestickBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_candlesticks)).BeginInit();
             this.groupBox_DWM.SuspendLayout();
@@ -92,15 +92,12 @@
             this.chart_candlesticks.ChartAreas.Add(chartArea1);
             this.chart_candlesticks.ChartAreas.Add(chartArea2);
             this.chart_candlesticks.DataSource = this.candlestickBindingSource;
-            legend1.Name = "Legend1";
-            this.chart_candlesticks.Legends.Add(legend1);
             this.chart_candlesticks.Location = new System.Drawing.Point(0, 239);
             this.chart_candlesticks.Name = "chart_candlesticks";
             series1.ChartArea = "ChartArea_OHLC";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
             series1.CustomProperties = "PriceDownColor=Crimson, PriceUpColor=ForestGreen";
             series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
             series1.Name = "Series_OHLC";
             series1.XValueMember = "date";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
@@ -109,7 +106,6 @@
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
             series2.ChartArea = "ChartArea_Volume";
             series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
             series2.Name = "Series_Volume";
             series2.XValueMember = "date";
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
@@ -219,8 +215,16 @@
             this.panel1.Controls.Add(this.dateTimePicker_startDate);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(333, 132);
+            this.panel1.Size = new System.Drawing.Size(343, 132);
             this.panel1.TabIndex = 12;
+            // 
+            // comboBox_PatternSelect
+            // 
+            this.comboBox_PatternSelect.FormattingEnabled = true;
+            this.comboBox_PatternSelect.Location = new System.Drawing.Point(371, 27);
+            this.comboBox_PatternSelect.Name = "comboBox_PatternSelect";
+            this.comboBox_PatternSelect.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_PatternSelect.TabIndex = 14;
             // 
             // Form_StockViewer
             // 
@@ -228,6 +232,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1588, 603);
+            this.Controls.Add(this.comboBox_PatternSelect);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.chart_candlesticks);
             this.Name = "Form_StockViewer";
@@ -260,6 +265,7 @@
         private System.Windows.Forms.RadioButton radioButton_Day;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox comboBox_PatternSelect;
     }
 }
 
