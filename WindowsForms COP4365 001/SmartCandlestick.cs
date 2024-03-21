@@ -19,12 +19,14 @@ namespace WindowsForms_COP4365_001
         public bool isBearish { get; set; }
         public bool isNeutral { get; set; }
         public bool isDoji { get; set; }
+        public bool isDragonflyDoji { get; set; }
+        public bool isGravestoneDoji { get; set; }
         public bool isHammer { get; set; }
         public bool isMarubozu { get; set; }
 
-        public Dictionary<string, bool> Properties { get; set;}
+        public Dictionary<string, bool> properties = new Dictionary<string, bool>();
 
-        public SmartCandlestick(Candlestick cs): base()
+        public SmartCandlestick(Candlestick cs)
         {
             date = cs.date;
             open = cs.open;
@@ -33,6 +35,12 @@ namespace WindowsForms_COP4365_001
             low = cs.low;
             adj_close = cs.adj_close;
             volume = cs.volume;
+            ComputeExtraProperties();
+
+        }
+
+        public SmartCandlestick(string csvline) : base(csvline)
+        {
             ComputeExtraProperties();
             ComputePatternProperties();
         }
@@ -49,12 +57,31 @@ namespace WindowsForms_COP4365_001
 
         public void ComputePatternProperties()
         {
-            isBearish = (open > close);
-            isBullish = (open < close);
-            isNeutral = (close == open);
-            isMarubozu = (bodyRange >= (decimal)0.96 * range);
-            isHammer = ((lowerTail >= (decimal)0.7 * range) || (upperTail >= (decimal)0.7 * range));
-            isDoji = (bodyRange <= (decimal)0.1 * range);
+            bool isBearish = (open > close);
+            properties.Add("Bearish", isBearish);
+
+            bool isBullish = (open < close);
+            properties.Add("Bullish", isBullish);
+
+            bool isNeutral = (close == open);
+            properties.Add("Neutral", isNeutral);
+
+
+            bool isMarubozu = (bodyRange >= (decimal)0.96 * range);
+            properties.Add("Marubozu", isMarubozu);
+
+            bool isHammer = ((lowerTail >= (decimal)0.7 * range) || (upperTail >= (decimal)0.7 * range));
+            properties.Add("Hammer", isHammer);
+
+            bool isDoji = (bodyRange <= (decimal)0.1 * range);
+            properties.Add("Doji", isDoji);
+
+            bool isDragonflyDoji = (isDoji &&  (lowerTail >= (decimal)0.1 * range));
+            properties.Add("Dragonfly Doji", isDragonflyDoji);
+
+            bool isGravestoneDoji = (isDoji && (upperTail >= (decimal)0.1 * range));
+            properties.Add("Gravestone Doji", isGravestoneDoji);
+
 
         }
 

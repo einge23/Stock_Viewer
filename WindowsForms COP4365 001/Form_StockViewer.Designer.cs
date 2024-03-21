@@ -49,11 +49,13 @@
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBox_PatternSelect = new System.Windows.Forms.ComboBox();
+            this.smartcandlestickBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.candlestickBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart_candlesticks)).BeginInit();
             this.groupBox_DWM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smartcandlestickBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog_loadTicker
@@ -98,6 +100,7 @@
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
             series1.CustomProperties = "PriceDownColor=Crimson, PriceUpColor=ForestGreen";
             series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
             series1.Name = "Series_OHLC";
             series1.XValueMember = "date";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
@@ -106,6 +109,7 @@
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
             series2.ChartArea = "ChartArea_Volume";
             series2.IsVisibleInLegend = false;
+            series2.IsXValueIndexed = true;
             series2.Name = "Series_Volume";
             series2.XValueMember = "date";
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
@@ -225,6 +229,12 @@
             this.comboBox_PatternSelect.Name = "comboBox_PatternSelect";
             this.comboBox_PatternSelect.Size = new System.Drawing.Size(121, 21);
             this.comboBox_PatternSelect.TabIndex = 14;
+            this.comboBox_PatternSelect.ValueMember = "properties";
+            this.comboBox_PatternSelect.SelectedIndexChanged += new System.EventHandler(this.comboBox_PatternSelect_SelectedIndexChanged);
+            // 
+            // smartcandlestickBindingSource
+            // 
+            this.smartcandlestickBindingSource.DataSource = typeof(WindowsForms_COP4365_001.SmartCandlestick);
             // 
             // Form_StockViewer
             // 
@@ -244,6 +254,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smartcandlestickBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -266,6 +277,7 @@
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBox_PatternSelect;
+        private System.Windows.Forms.BindingSource smartcandlestickBindingSource;
     }
 }
 

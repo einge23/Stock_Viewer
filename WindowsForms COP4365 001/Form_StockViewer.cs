@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows.Forms.VisualStyles;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WindowsForms_COP4365_001
 {
     public partial class Form_StockViewer : Form
     {
         private List<Candlestick> candlesticks = null; // initialize null list of candlesticks to instantiate later
-        private List<SmartCandlestick> smartCandlesticks = null;
         private BindingList<Candlestick> boundCandlesticks = null; // initialize bindinglist to update the data shown on the chart dynamically
 
         public Form_StockViewer()
@@ -112,7 +112,7 @@ namespace WindowsForms_COP4365_001
                     {
                         //read the next line
                         //this is where we need to instantiate the candlestick represented by the string
-                        Candlestick cs = new Candlestick(line);
+                        SmartCandlestick cs = new SmartCandlestick(line);
 
                         //add candlesticks to list
                         candlesticks.Add(cs);
@@ -137,30 +137,6 @@ namespace WindowsForms_COP4365_001
             }
         }
 
-        private List<SmartCandlestick> ConvertCandlesticksToSmart(List<Candlestick> candlesticks)
-        {
-            smartCandlesticks = new List<SmartCandlestick>();
-            foreach(Candlestick cs in candlesticks)
-            {
-                SmartCandlestick scs = new SmartCandlestick(cs);
-            }
-            return smartCandlesticks;
-        }
-
-        private void ConvertCandlesticksToSmart()
-        {
-            smartCandlesticks = ConvertCandlesticksToSmart(candlesticks);
-            foreach(SmartCandlestick scs in smartCandlesticks)
-            {
-                scs.Properties.Add("Bearish", scs.isBearish);
-                scs.Properties.Add("Bullish", scs.isBullish);
-                scs.Properties.Add("Neutral", scs.isNeutral);
-                scs.Properties.Add("Marubozu", scs.isMarubozu);
-                scs.Properties.Add("Hammer", scs.isHammer);
-                scs.Properties.Add("Doji", scs.isDoji);
-            }
-        }
-
 
         /// <summary>
         /// default method for the goReadFile method. Calls the version that takes parameters with the openfiledialogs file name.
@@ -169,6 +145,7 @@ namespace WindowsForms_COP4365_001
         {
             //assigns a list 'candlesticks' to the returned list from the other version of the goReadFile function.
             List<Candlestick> candlesticks = goReadFile(openFileDialog_loadTicker.FileName);
+            boundCandlesticks = new BindingList<Candlestick>(candlesticks);
         }
 
         /// <summary>
@@ -226,6 +203,7 @@ namespace WindowsForms_COP4365_001
 
             //assigns the binding list to the filtered list of candlesticks. This will be used to dynamically update the chart and datagrid view.
             boundCandlesticks = new BindingList<Candlestick>(filteredList);
+            PopulateComboBox();
         }
 
         /// <summary>
@@ -356,7 +334,46 @@ namespace WindowsForms_COP4365_001
             openFileDialog_loadTicker.Filter = "Monthly|*-Month.csv";
         }
 
-        private void 
+        private void PopulateComboBox(BindingList<Candlestick> bindList)
+        {
+            if (bindList.Count != 0)
+            {
+                comboBox_PatternSelect.Items.Clear();
+                SmartCandlestick scs = (SmartCandlestick)bindList[0];
+                foreach (string key in scs.properties.Keys)
+                {
+                    comboBox_PatternSelect.Items.Add(key);
+                }
+            }
+        }
+
+        private void PopulateComboBox()
+        {
+            PopulateComboBox(boundCandlesticks);
+        }
+
+        private void comboBox_PatternSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chart_candlesticks.Annotations.Clear();
+            for (int i = 0; i < boundCandlesticks.Count; i++)
+            {
+                SmartCandlestick scs = (SmartCandlestick)boundCandlesticks[i];
+                DataPoint DP = chart_candlesticks.Series[0].Points[i];
+                if (scs != null)
+                {
+                    RectangleAnnotation rectAnno = new RectangleAnnotation();
+                    rectAnno.AxisX = chart_candlesticks.ChartAreas[0].AxisX;
+                    rectAnno.AxisY = chart_candlesticks.ChartAreas[0].AxisY;
+                    rectAnno.Height = 0.5;
+                    rectAnno.Width = 0.5;
+                    if (scs.properties[comboBox_PatternSelect.SelectedItem.ToString()])
+                    {
+                        rectAnno.SetAnchor(DP);
+                        chart_candlesticks.Annotations.Add(rectAnno);
+                    }
+                }
+            }
+        }
     }   
     }
 
