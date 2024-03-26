@@ -42,7 +42,7 @@ namespace WindowsForms_COP4365_001
         public SmartCandlestick(string csvline) : base(csvline)
         {
             ComputeExtraProperties();
-            ComputePatternProperties();
+            //ComputePatternProperties();
         }
 
         public void ComputeExtraProperties()
@@ -55,35 +55,35 @@ namespace WindowsForms_COP4365_001
             lowerTail = bottomPrice - low;
         }
 
-        public void ComputePatternProperties()
-        {
-            bool isBearish = (open > close);
-            properties.Add("Bearish", isBearish);
+        //public void ComputePatternProperties()
+        //{
+        //    bool isBearish = (open > close);
+        //    properties.Add("Bearish", isBearish);
 
-            bool isBullish = (open < close);
-            properties.Add("Bullish", isBullish);
+        //    bool isBullish = (open < close);
+        //    properties.Add("Bullish", isBullish);
 
-            bool isNeutral = (close == open);
-            properties.Add("Neutral", isNeutral);
-
-
-            bool isMarubozu = (bodyRange >= (decimal)0.96 * range);
-            properties.Add("Marubozu", isMarubozu);
-
-            bool isHammer = ((lowerTail >= (decimal)0.7 * range) || (upperTail >= (decimal)0.7 * range));
-            properties.Add("Hammer", isHammer);
-
-            bool isDoji = (bodyRange <= (decimal)0.1 * range);
-            properties.Add("Doji", isDoji);
-
-            bool isDragonflyDoji = (isDoji &&  (lowerTail >= (decimal)0.1 * range));
-            properties.Add("Dragonfly Doji", isDragonflyDoji);
-
-            bool isGravestoneDoji = (isDoji && (upperTail >= (decimal)0.1 * range));
-            properties.Add("Gravestone Doji", isGravestoneDoji);
+        //    bool isNeutral = (close == open);
+        //    properties.Add("Neutral", isNeutral);
 
 
-        }
+        //    bool isMarubozu = (bodyRange >= (decimal)0.96 * range);
+        //    properties.Add("Marubozu", isMarubozu);
+
+        //    bool isHammer = ((lowerTail >= (decimal)0.7 * range) || (upperTail >= (decimal)0.7 * range));
+        //    properties.Add("Hammer", isHammer);
+
+        //    bool isDoji = (bodyRange <= (decimal)0.1 * range);
+        //    properties.Add("Doji", isDoji);
+
+        //    bool isDragonflyDoji = (isDoji &&  (lowerTail >= (decimal)0.1 * range));
+        //    properties.Add("Dragonfly Doji", isDragonflyDoji);
+
+        //    bool isGravestoneDoji = (isDoji && (upperTail >= (decimal)0.1 * range));
+        //    properties.Add("Gravestone Doji", isGravestoneDoji);
+
+
+        //}
 
 
     }
